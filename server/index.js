@@ -18,27 +18,31 @@ io.on('connection', (socket) =>{
 
         const {error, user} = addUser({ id: socket.id, name, room})
 
-        if (error) return callback(error);
+        if (error) {
+            console.log(error)
+            callback(error);
+        } else {
+            socket.emit('message', {user: 'admin', text: `${user.name}, bem vindo a sala ${user.room}!`})
+            socket.broadcast.to(user.room).emit('message', {user: 'admin', text: `${user.name} entrou na sala!`})
 
-        socket.emit('message', { user: 'admin', text: `${user.name}, bem vindo a sala ${user.room}!`})
-        socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} entrou na sala!`})
+            socket.join(user.room);
 
-        socket.join(user.room);
+            io.to(user.room).emit('roomData', {room: user.room, users: getUsersInRoom(user.room)})
 
-        io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) })
+            callback();
 
-        callback();
+            socket.on('getClass', (callback) => {
+                const userClass = getClass(socket.id);
+
+                const user = getUser(socket.id);
+
+                io.to(user.room).emit('getClass', userClass)
+
+                callback();
+            })
+        }
 
     });
-    socket.on('getClass', (callback) => {
-        const userClass = getClass(socket.id);
-
-        const user = getUser(socket.id);
-
-        io.to(user.room).emit('getClass', userClass)
-
-        callback();
-    })
 
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id);

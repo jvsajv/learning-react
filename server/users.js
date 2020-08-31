@@ -8,28 +8,19 @@ const addUser = ({ id, name, room, userClass }) => {
     const existingUser = users.find((user) => user.room === room && user.name === name);
 
     if(!name || !room) return { error: 'Username and room are required.' };
-    if(existingUser) return { error: 'Username is taken.' };
+    if(existingUser) return { error: 'Ja existe um usuario com esse nome nesta sala' };
 
     const user = { id, name, room, userClass };
 
     users.push(user);
 
-    console.log(`Adding ${user.id}`)
-
-    console.log(users)
-
     addClass(id)
-
-    console.log(user)
 
     return { user };
 }
 const addClass = (id) => {
     const index = users.findIndex((user) => user.id === id);
-    console.log(index)
-
     users[index].userClass = 'lobo'
-    console.log(`Adding class to user with the index ${index}`)
 }
 
 const getClass = (id) => {
