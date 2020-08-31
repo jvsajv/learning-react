@@ -52,9 +52,19 @@ const Chat = ({ location }) => {
         }
 
     }
+    const allUsers = (event) => {
+
+        event.preventDefault();
+
+        if()
+
+    }
 
     return (
         <div className="outerContainer">
+            <div className="usersInRoom">
+                <Tab room-={room} allUsers={allUsers}
+            </div>
             <div className="container">
                 <InfoBar room={room}/>
                 <Messages messages={messages} name={name} />
