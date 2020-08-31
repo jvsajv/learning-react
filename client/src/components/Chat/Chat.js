@@ -15,6 +15,8 @@ const Chat = ({location}) => {
 
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
+    const [user, setUser] = useState('');
+    const [userClass, setClass] = useState('');
     const [users, setUsers] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
@@ -31,6 +33,9 @@ const Chat = ({location}) => {
         socket.emit('join', {name, room}, () => {
 
         });
+        socket.emit('getClass', () => {
+
+        });
 
         return () => {
             socket.emit('disconnect');
@@ -42,11 +47,14 @@ const Chat = ({location}) => {
 
     useEffect(() => {
         socket.on('message', (message) => {
-            setMessages([...messages, message]);
+            setMessages(messages => [ ...messages, message ]);
         });
         socket.on("roomData", ({users}) => {
             setUsers(users);
         });
+        socket.on("getClass", (userClass) =>{
+            setClass(userClass)
+        })
     }, []);
 
     const sendMessage = (event) => {
@@ -70,7 +78,7 @@ const Chat = ({location}) => {
                 <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
             </div>
             <div className="game-tab">
-                <GameTab name={name}/>
+                <GameTab userClass={userClass} name={name}/>
             </div>
 
         </div>

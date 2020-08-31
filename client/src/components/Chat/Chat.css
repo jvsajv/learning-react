@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   height: 100vh;
-  background-color: darkred;
+  background-color: #1A1A1D;
 }
 
 .container {
@@ -18,18 +18,12 @@
 .users-list {
   display: flex;
   height: 100%;
-  width: auto;
-  background-color: grey;
-  justify-items: center;
-  overflow: auto;
+  background-color: darkred;
+  padding-left: 1px;
 }
-.game-tab {
-  display: flex;
-  height: auto;
-  width: auto;
-  background-color: orangered;
-  border-radius: 4px 4px 4px 4px;
-  border: 1px solid black;
+.game-tab{
+  background-color: darkred;
+  border-radius: 4px;
 }
 @media (min-width: 320px) and (max-width: 480px) {
   .outerContainer {
