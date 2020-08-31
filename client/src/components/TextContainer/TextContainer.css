@@ -1,0 +1,47 @@
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1px;
+  color: white;
+  height: 60%;
+  justify-content: space-between;
+}
+
+.activeContainer {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
+
+.activeItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  padding-left: 0px;
+}
+.name {
+  font-size: 18px;
+  margin: 8px;
+}
+.activeContainer img {
+  padding-left: 10px;
+}
+
+.textContainer h1 {
+  margin-bottom: 0px;
+}
+.textContainer h2 {
+  margin: 16px;
+  width: auto;
+
+}
+
+@media (min-width: 320px) and (max-width: 1200px) {
+  .textContainer {
+    display: none;
+  }
+}
