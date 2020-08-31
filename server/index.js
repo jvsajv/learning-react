@@ -2,7 +2,7 @@ const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
 
-const {addUser, removeUser, getUser, getUsersInRoom} = require('./users.js');
+const {addUser, getClass, removeUser, getUser, getUsersInRoom} = require('./users.js');
 
 const PORT = process.env.PORT || 5000;
 
@@ -30,6 +30,15 @@ io.on('connection', (socket) =>{
         callback();
 
     });
+    socket.on('getClass', (callback) => {
+        const userClass = getClass(socket.id);
+
+        const user = getUser(socket.id);
+
+        io.to(user.room).emit('getClass', userClass)
+
+        callback();
+    })
 
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id);
